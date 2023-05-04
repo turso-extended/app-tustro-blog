@@ -64,15 +64,9 @@ All commands are run from the root of the project, from a terminal:
 
 ## Setting up the database
 
-Install the Turso CLI.
+Install the Turso CLI by following the instructions [here](https://docs.turso.tech/reference/turso-cli#installation).
 
-```sh
-# On macOS or Linux with Homebrew
-brew install chiselstrike/tap/turso
 
-# Manual scripted installation
-curl -sSfL <https://get.tur.so/install.sh> | bash
-```
 
 Create a new turso database.
 
@@ -130,11 +124,8 @@ create unique index idx_posts_id on posts(id);
 create unique index idx_posts_slug on posts(slug);
 create index idx_posts_title on posts(title);
 create index idx_posts_published on posts(published);
-```
 
-Run these statements to seed some initial blog data into the database.
-
-```sql
+-- Run these statements to seed some initial blog data into the database.
 -- seed some data
 insert into authors (
 	first_name, last_name, slug, email, twitter, avatar
@@ -156,6 +147,8 @@ Netlify lets developers skip DevOps and set up projects globally in a production
 1, "devops, netlify, turso, qwik", true
 
 );
+
+
 insert into posts(
 	title, description, slug, content, hero, author_id, tags, published
 ) values (
@@ -171,7 +164,29 @@ When working remotely, the database is accessed through HTTP and WebSockets, as 
 "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*YPvsd-V0-KAIbJbVuCaMdQ.png",
 1, "open-source, turso", true
 );
+
+-- quiting the database
+.quit
+
 ```
+
+Filling up the env Variables
+On the root of the project, there is a file called `.env.local`. Copy the contents of this file into a new file called `.env` and fill in the values for the variables.
+
+The first one is the database url, you can get it by running the following command on your terminal:
+
+```sh
+turso db show [DATABASE-NAME] --url
+```
+
+The second one is the authentication token, you can generate it by running the following command on your terminal:
+
+```sh
+turso db tokens create [DATABASE-NAME] 
+```
+
+
+
 
 ---
 
